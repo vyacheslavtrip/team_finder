@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+
+        input {
+            margin-top: 5px;
+            padding: 8px;
+            width: 100%;
+        }
+
+        button {
+            margin-top: 10px;
+            padding: 10px;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <ul>
+        {% for category, message in messages %}
+        <li class="{{ category }}">{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+
+    <main class="main-container">
+        <form method="POST" action="{{ url_for('auth.register') }}">
+            {{ form.hidden_tag() }}
+
+            <div>
+                {{ form.username.label }} {{ form.username() }}
+            </div>
+
+            <div>
+                {{ form.email.label }} {{ form.email() }}
+            </div>
+
+            <div>
+                {{ form.password.label }} {{ form.password() }}
+            </div>
+
+            <div>
+                {{ form.confirm_password.label }} {{ form.confirm_password() }}
+            </div>
+
+            <button type="submit">Зарегистрироваться</button>
+        </form>
+    </main>
+
+    <footer class="header-container"></footer>
+</body>
+
+</html>
