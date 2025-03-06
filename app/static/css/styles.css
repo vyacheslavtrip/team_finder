@@ -1,0 +1,27 @@
+@import url('main/user_card.css');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.header-container {
+    height: 80px;
+    border-bottom: 2px solid #ccc;
+
+    padding: 10px;
+    gap: 10px;
+
+}
+
+.content-container {
+    display: flex;
+    gap: 20px;
+}
+
+.main-container {
+    width: 70%;
+
+    margin: 20px auto;
+}

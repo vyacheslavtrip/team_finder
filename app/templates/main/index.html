@@ -1,5 +1,11 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-<h1>Home page</h1>
+
+<div class="content-container">
+    {% for user in users %}
+    {% include 'main/user_card.html' %}
+    {% endfor %}
+</div>
+
 {% endblock %}
