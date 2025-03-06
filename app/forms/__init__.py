@@ -1,1 +1,2 @@
-from .forms import LoginForm, RegisterForm
+from .auth_forms import LoginForm, RegisterForm
+from .user_forms import ProfileForm

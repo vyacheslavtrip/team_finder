@@ -1,6 +1,15 @@
 {% extends 'layout.html' %}
 
 {% block content %}
+
 <h1>Profile of <span style="color:rgb(185, 71, 230)">{{ user.username }}</span></h1>
 <p>Email: {{ user.email }}</p>
+{% if user.profile.description %}
+<p>About: {{ user.profile.description }}</p>
+{% endif %}
+
+{% if user.id == current_user.id %}
+<a href="{{ url_for('user.edit_profile') }}">Изменить профиль</a>
+{% endif %}
+
 {% endblock %}
