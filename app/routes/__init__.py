@@ -1,3 +1,3 @@
 from .main import main
-from .user import user
-from .auth import auth
+from .user_bp import user_bp
+from .auth_bp import auth_bp

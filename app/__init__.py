@@ -2,7 +2,7 @@ from flask import Flask
 
 from .config import Config
 from .extensions import db, migrate, login_manager
-from .routes import main, user, auth
+from .routes import main, user_bp, auth_bp
 from .models import User
 
 def create_app():
@@ -20,7 +20,7 @@ def create_app():
         return User.query.get(int(user_id))
 
     app.register_blueprint(main)
-    app.register_blueprint(user)
-    app.register_blueprint(auth, url_prefix='/auth')
+    app.register_blueprint(user_bp)
+    app.register_blueprint(auth_bp, url_prefix='/auth')
 
     return app

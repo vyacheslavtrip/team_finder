@@ -1,53 +1,42 @@
 {% extends 'layout.html' %}
 
 {% block content %}
+<div class="edit-container">
+    {% include 'edit_links_layout.html' %}
 
-<h1>Edit Profile of <span style="color:rgb(185, 71, 230)">{{ user.username }}</span></h1>
+    <div class="edit-forms-container">
+        <form method="POST">
+            {{ form.hidden_tag() }}
 
-<form method="POST">
-    {{ form.hidden_tag() }}
+            <div>
+                {{ form.username.label() }}
+                {{ form.username() }}
 
-    <div class="form-group">
-        <label for="username">Username</label>
-        {{ form.username(class="form-control") }}
-        {% for error in form.username.errors %}
-        <div class="error">{{ error }}</div>
-        {% endfor %}
+                {% for error in form.username.errors %}
+                <div class="error">{{ error }}</div>
+                {% endfor %}
+            </div>
+
+            <div>
+                {{ form.email.label() }}
+                {{ form.email() }}
+
+                {% for error in form.email.errors %}
+                <div class="error">{{ error }}</div>
+                {% endfor %}
+            </div>
+
+            <div>
+                {{ form.description.label() }}
+                {{ form.description() }}
+
+                {% for error in form.description.errors %}
+                <div class="error">{{ error }}</div>
+                {% endfor %}
+            </div>
+
+            {{ form.submit() }}
+        </form>
     </div>
-
-    <div class="form-group">
-        <label for="email">Email</label>
-        {{ form.email(class="form-control") }}
-        {% for error in form.email.errors %}
-        <div class="error">{{ error }}</div>
-        {% endfor %}
-    </div>
-
-    <div class="form-group">
-        <label for="description">About</label>
-        {{ form.description(class="form-control") }}
-        {% for error in form.description.errors %}
-        <div class="error">{{ error }}</div>
-        {% endfor %}
-    </div>
-
-    <h2>Social Links</h2>
-    <ul>
-        {% for field_name, label in SOCIAL_LINKS.items() %}
-        <li class="form-group">
-            <label for="{{ field_name }}">{{ label }}</label>
-            <input type="text" name="{{ field_name }}"
-                value="{{ form[field_name].data if form[field_name].data else '' }}" class="form-control">
-            {% if form[field_name].errors %}
-            {% for error in form[field_name].errors %}
-            <div class="error">{{ error }}</div>
-            {% endfor %}
-            {% endif %}
-        </li>
-        {% endfor %}
-    </ul>
-
-    {{ form.submit(class="btn btn-primary") }}
-</form>
-
+</div>
 {% endblock %}

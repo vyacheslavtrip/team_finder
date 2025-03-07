@@ -1,0 +1,26 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="edit-container">
+    {% include 'edit_links_layout.html' %}
+
+    <div class="edit-forms-container">
+        <form method="POST">
+            {{ form.hidden_tag() }}
+
+            {% for field_name, label in SOCIAL_LINKS.items() %}
+            <div>
+                <label for="{{ form[field_name].id }}">{{ label }}</label>
+                {{ form[field_name]() }}
+
+                {% for error in form[field_name].errors %}
+                <div class="error">{{ error }}</div>
+                {% endfor %}
+            </div>
+            {% endfor %}
+
+            {{ form.submit() }}
+        </form>
+    </div>
+</div>
+{% endblock %}

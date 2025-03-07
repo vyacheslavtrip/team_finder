@@ -3,12 +3,12 @@ from flask_login import login_user, logout_user, login_required
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from app.extensions import db
-from app.models import User
+from app.models import User, Profile
 from app.forms import LoginForm, RegisterForm
 
-auth = Blueprint('auth', __name__)
+auth_bp = Blueprint('auth', __name__)
 
-@auth.route('/login', methods=['GET', 'POST'])
+@auth_bp.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
 
@@ -27,13 +27,13 @@ def login():
 
 
 @login_required  
-@auth.route('/logout')
+@auth_bp.route('/logout')
 def logout():
     logout_user()  
     return redirect(url_for('main.index'))
 
 
-@auth.route('/register', methods=['GET', 'POST'])
+@auth_bp.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegisterForm()
 
@@ -45,8 +45,15 @@ def register():
             password=hashed_password,
             email=form.email.data
         )
-    	
+        
         db.session.add(user)
+        db.session.commit()
+
+        profile = Profile(
+            user_id=user.id
+        )
+
+        db.session.add(profile)
         db.session.commit()
 
         login_user(user)

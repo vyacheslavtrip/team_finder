@@ -2,6 +2,8 @@
     <div class="user_card-container">
         <span style="color:rgb(185, 71, 230)">{{ user.username }}</span>
         <p>Email: {{ user.email }}</p>
+        {% if user.profile.description %}
         <p>{{ user.profile.description }}</p>
+        {% endif %}
     </div>
 </a>
