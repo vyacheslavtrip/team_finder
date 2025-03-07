@@ -4,9 +4,23 @@
 
 <h1>Profile of <span style="color:rgb(185, 71, 230)">{{ user.username }}</span></h1>
 <p>Email: {{ user.email }}</p>
+
 {% if user.profile.description %}
 <p>About: {{ user.profile.description }}</p>
 {% endif %}
+
+<h2>Social Links</h2>
+<ul>
+    {% for field_name, label in SOCIAL_LINKS.items() %}
+    {% set link = social_links[field_name] %}
+    {% if link %}
+    <li>
+        <strong>{{ label }}:</strong>
+        <a href="{{ link }}" target="_blank">{{ link }}</a>
+    </li>
+    {% endif %}
+    {% endfor %}
+</ul>
 
 {% if user.id == current_user.id %}
 <a href="{{ url_for('user.edit_profile') }}">Изменить профиль</a>

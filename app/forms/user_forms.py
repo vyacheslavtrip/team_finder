@@ -1,9 +1,18 @@
 from flask_wtf import FlaskForm
-from wtforms import TextAreaField, StringField, SubmitField
-from wtforms.validators import Length, DataRequired, Email
+from wtforms import StringField, SubmitField, TextAreaField, URLField
+from wtforms.validators import DataRequired, Email, Optional, URL
+from app.models import SOCIAL_LINKS
 
 class ProfileForm(FlaskForm):
-    username = StringField('Имя пользователя', validators=[DataRequired(), Length(max=150)])
-    email = StringField('Электронная почта', validators=[DataRequired(), Email(), Length(max=150)])
-    description = TextAreaField('Описание', validators=[Length(max=500)])
-    submit = SubmitField('Сохранить')
+    username = StringField('Username', validators=[DataRequired()])
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    description = TextAreaField('Description', validators=[Optional()])
+
+    link_fields = {}
+    for field_name, label in SOCIAL_LINKS.items():
+        link_fields[field_name] = URLField(label, validators=[Optional(), URL()])
+    
+    locals().update(link_fields)
+
+    submit = SubmitField('Save')
+
